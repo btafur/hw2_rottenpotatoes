@@ -15,15 +15,18 @@ class MoviesController < ApplicationController
       w = "rating = 'S'"
       r.each do |x|
         w << " or rating = '#{x}'"
-      end
-      
+      end      
       if @sort == nil
         @movies = Movie.where(w)     
       else
         @movies = Movie.order(@sort).where(w)     
       end
     else
-      @movies = Movie.all
+      if @sort == nil
+        @movies = Movie.all    
+      else
+        @movies = Movie.order(@sort).all    
+      end
     end
       
   end
