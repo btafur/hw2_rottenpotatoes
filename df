@@ -1,0 +1,19 @@
+commit b3ccf3722e914123450ccbb3dfc2184ff6fa17ce
+Author: saasbook <saasbook@saasbook.(none)>
+Date:   Wed Jan 23 17:26:34 2013 -0800
+
+    init
+
+diff --git a/app/controllers/movies_controller.rb b/app/controllers/movies_controller.rb
+index 8021b99..bbdf091 100644
+--- a/app/controllers/movies_controller.rb
++++ b/app/controllers/movies_controller.rb
+@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
+     @ratings = params[:ratings]
+     @all_ratings = Movie.ratings
+     @sort = params[:sort]
+-    if (@ratings == nil && @sort == nil) && (session[:ratings] != nil || session[:sort] != nill)
++    if (@ratings == nil && @sort == nil) && (session[:ratings] != nil || session[:sort] != nil)
+       if session[:ratings] != nil && @ratings == nil
+         @ratings = session[:ratings]
+       end
