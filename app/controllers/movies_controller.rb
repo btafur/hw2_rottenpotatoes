@@ -10,7 +10,18 @@ class MoviesController < ApplicationController
     @ratings = params[:ratings]
     @all_ratings = Movie.ratings
     @sort = params[:sort]
+    if (@ratings == nil && @sort == nil) && session != nil
+      if session[:ratings] != nil && @ratings == nil
+        @ratings = session[:ratings]
+      end
+      if session[:sort] != nil && @sort == nil
+        @sort = session[:sort]      
+      end
+      flash.keep
+      redirect_to :ratings => @ratings, :sort => @sort
+    end   
     if @ratings != nil
+      session[:ratings] = @ratings
       r = @ratings.keys
       w = "rating = 'S'"
       r.each do |x|
@@ -19,12 +30,14 @@ class MoviesController < ApplicationController
       if @sort == nil
         @movies = Movie.where(w)     
       else
+        session[:sort] = @sort
         @movies = Movie.order(@sort).where(w)     
       end
     else
       if @sort == nil
         @movies = Movie.all    
       else
+        session[:sort] = @sort
         @movies = Movie.order(@sort).all    
       end
     end
